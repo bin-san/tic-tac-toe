@@ -1,0 +1,1 @@
+var resLabels = document.getElementsByTagName("res-label")

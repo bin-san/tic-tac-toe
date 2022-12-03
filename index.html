@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Tic Tac Toe</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div></div>
+        <div id="game-window">
+            <!--HOME PAGE-->
+            <div id="homepage" hidden="true">
+                <button class="gametitle">Tic  Tac  Toe</button>
+                <div class="btngroups">
+                    <button class="btn" title="You can play this game alone... with our friendly bots" onclick="pageLoader(PLAY_WITH_BOT_LOGIN_PAGE)">Play with Bot</button>
+                    <button class="btn" title="If you want play this game with your friends... select this">Play with Friend</button>
+                </div>
+            </div>
+            <!--BOT LOG IN PAGE-->
+            <div id="playwithbotloginpage" hidden="true">
+                <div class="selectbotform" hidden onclick="destroyBotSelectionWindow()">
+                    <div class="selectbotwin"></div>
+                </div>
+                <div id="playwithbotloginpage2">
+                    <div class="topnavbar">
+                        <button class="navback" onclick="pageLoader(HOME_PAGE)">
+                            Back
+                        </button>
+                        <div class="blanknav"></div>
+                    </div>
+                    <div class="botloginform" onclick="">
+                        <input type="text" placeholder="User id (e.g. user123)" class="botinput">
+                        <button id="selectbot" class="botbtn" onclick="createBotSelectionWindow()">Select Bot</button>
+                        <button class="botbtn">Play Game</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="run.js"></script>
+</html>
