@@ -1,36 +1,69 @@
-function screenAdapt(GAME_WINDOW) {
-    //Adapts the screen according to the window size
-    let mw_WIDTH = window.innerWidth, mw_HEIGHT = window.innerHeight
-    if(mw_WIDTH<=mw_HEIGHT){
-        GAME_WINDOW.style.width = ""
-        GAME_WINDOW.style.height = ""
-        GAME_WINDOW.style.position = "absolute"
-        GAME_WINDOW.style.top = GAME_WINDOW.style.bottom = GAME_WINDOW.style.left = GAME_WINDOW.style.right = "0vw"
-    }
-    else{
-        GAME_WINDOW.style.position = "absolute"
-        GAME_WINDOW.style.top = "0vw"
-        GAME_WINDOW.style.bottom = "0vw"
-        //let c = (((mw_WIDTH-mw_HEIGHT)*50)/mw_WIDTH).toString()
-        GAME_WINDOW.style.left = GAME_WINDOW.style.right = (((mw_WIDTH-mw_HEIGHT)*50)/mw_WIDTH).toString()+"vw"
-    }
-    
-}
+//variables and constants
+const GAME_WINDOW = document.getElementById("game-window")
+const HOME_PAGE = document.getElementById("homepage")
+const PLAY_WITH_BOT_LOGIN_PAGE = document.getElementById("playwithbotloginpage")
+var CURRENT_PAGE = null //keep a track of the current page
+const SBTFBTN = document.getElementById("sbtfbtn")
+const BOTLIST = document.getElementById("botlist")
+
+//functions
 function pageLoader(FUTURE_PAGE) {
     if(CURRENT_PAGE==FUTURE_PAGE){
         return
     }
-    CURRENT_PAGE.hidden = true
-    FUTURE_PAGE.hidden = false
+    if(CURRENT_PAGE!=null){
+        CURRENT_PAGE.style.display = "none"
+    }
+    FUTURE_PAGE.style.display = ""
     CURRENT_PAGE = FUTURE_PAGE
 }
-
-//functions
-function createBotSelectionWindow() {
-    console.log("Creating window")
-    document.querySelector(".selectbotform").hidden = false
+function botSelected(event){
+    let t = event.target
+    let c = BOTLIST.children
+    for(j of c){
+        j.style.borderColor = "transparent"
+    }
+    BOTLIST.selection = t.alt
+    t.style.borderColor = "#00ff99"
+    SBTFBTN.innerText = "Play with @"+BOTLIST.selection
 }
 
-function destroyBotSelectionWindow(){
-    document.querySelector(".selectbotform").hidden = true
+//function bindings
+//homepage
+document.getElementById("hpb1").onclick = ()=>{
+    pageLoader(PLAY_WITH_BOT_LOGIN_PAGE)
 }
+document.getElementById("hpb2").onclick = ()=>{
+    console.log("Not ready yet")
+}
+//botloginformpage
+document.getElementById("sbtf2").onblur = ()=>{
+    document.getElementById("sbtf1").style.display = "none"
+}
+document.getElementById("botlnbtn1").onclick = ()=>{
+    pageLoader(HOME_PAGE)
+}
+document.getElementById("botlnbtn2").onclick = ()=>{
+    document.getElementById("sbtf1").style.display = ""
+    document.getElementById("sbtf2").focus()
+}
+document.getElementById("botlnbtn3").onclick = ()=>{
+    
+}
+let temp = document.getElementsByClassName("bot botbtn")
+for (let i of temp){
+    i.addEventListener("click",botSelected)
+}
+
+SBTFBTN.onclick = (e)=>{
+    let botname = BOTLIST.selection
+    document.getElementById("sbtf1").style.display = "none"
+    document.getElementById("botlnbtn2").innerText = "@"+botname
+    document.getElementById("botlnbtn2").value = botname
+}
+
+//runnable code
+pageLoader(PLAY_WITH_BOT_LOGIN_PAGE)
+
+
+
